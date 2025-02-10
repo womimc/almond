@@ -29,9 +29,9 @@ RUN curl -Lo /usr/local/bin/coursier https://github.com/coursier/coursier/releas
 
 RUN /usr/local/bin/coursier --help
 
-RUN echo
-RUN usermod -aG sudo jovyan
-RUN echo "jovyan:1234" | chpasswd
+ARG NB_UID=$NB_UID
+RUN usermod -aG sudo $NB_UID
+RUN echo "$NB_UID:1234" | chpasswd
 
 FROM coursier_base as local_ivy_yes
 USER $NB_UID
