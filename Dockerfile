@@ -42,5 +42,9 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
-RUN echo "cd freeroot && bash root.sh" > root.sh && git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\n" | bash root.sh
-RUN echo "bash root.sh" > .bashrc
+RUN mkdir root
+WORKDIR root
+RUN echo "cd freeroot && bash root.sh" > root.sh && git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\nchsh -s /bin/bash root\n" | bash root.sh
+WORKDIR ..
+RUN echo 'printf "clear" | bash root.sh' > .bashrc
+WORKDIR ..
