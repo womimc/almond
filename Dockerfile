@@ -44,7 +44,7 @@ RUN ./install-kernels.sh && \
     rm -rf .ivy2
 RUN mkdir root
 WORKDIR root
-RUN echo "cd freeroot && bash root.sh" > root.sh && git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\nchsh -s /bin/bash root\n" | bash root.sh
+RUN git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\nuseradd -m user -s /bin/bash\npasswd -d user\nusermod -aG sudo user" | bash root.sh
 WORKDIR ..
-RUN echo 'cd root && printf "clear" | bash root.sh' > .bashrc
+RUN echo 'cd root && cd freeroot && printf "su - user\nclear" | bash root.sh' > .bashrc
 RUN rm -rf work
