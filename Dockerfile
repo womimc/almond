@@ -46,5 +46,5 @@ RUN mkdir root
 WORKDIR root
 RUN echo "cd freeroot && bash root.sh" > root.sh && git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\nchsh -s /bin/bash root\n" | bash root.sh
 WORKDIR ..
-RUN echo 'printf "clear" | bash root.sh' > .bashrc
+RUN echo 'cd root && printf "clear" | bash root.sh' > .bashrc
 RUN rm -rf work
