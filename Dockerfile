@@ -10,6 +10,10 @@ FROM jupyter/base-notebook as coursier_base
 
 USER root
 
+RUN useradd -m user -s /bin/bash && \
+  usermod -aG sudo user && \
+  passwd -d user
+
 RUN apt-get -y update && \
     apt-get install --no-install-recommends -y \
       curl \
@@ -28,10 +32,6 @@ RUN curl -Lo /usr/local/bin/coursier https://github.com/coursier/coursier/releas
     chmod +x /usr/local/bin/coursier
 
 RUN /usr/local/bin/coursier --help
-
-RUN useradd -m user -s /bin/bash && \
-  usermod -aG sudo jovyan && \
-  passwd -d user
 
 FROM coursier_base as local_ivy_yes
 USER $NB_UID
