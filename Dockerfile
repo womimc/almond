@@ -10,9 +10,7 @@ FROM jupyter/base-notebook as coursier_base
 
 USER root
 
-RUN useradd -m user -s /bin/bash && \
-  usermod -aG sudo user && \
-  passwd -d user
+RUN useradd -m user -s /bin/bash && usermod -aG sudo user && echo "user:1234" | chpasswd
 
 RUN apt-get -y update && \
     apt-get install --no-install-recommends -y \
