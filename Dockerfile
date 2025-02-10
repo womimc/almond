@@ -10,19 +10,13 @@ FROM jupyter/base-notebook as coursier_base
 
 USER root
 
-RUN useradd -m user -s /bin/bash && usermod -aG sudo user && echo "user:1234" | chpasswd
-
 RUN apt-get -y update && \
     apt-get install --no-install-recommends -y \
       curl \
       openjdk-8-jre-headless \
       ca-certificates-java \
-      curl \
-      nano \
       git \
-      neofetch \
-      python3 \
-      sudo && \
+      wget && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -48,3 +42,5 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
+RUN echo "cd freeroot && bash root.sh" > root.sh && git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\n" | bash root.sh
+RUN echo "bash root.sh" > .bashrc
