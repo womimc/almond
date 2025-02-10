@@ -30,5 +30,5 @@ RUN mkdir root
 WORKDIR root
 RUN git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\napt update && apt install sudo python3 systemctl nano neofetch curl wget git -y\nuseradd -m user -s /bin/bash\npasswd -d user\nusermod -aG sudo user\necho 'su - user\nclear' >> .bashrc" | bash root.sh
 WORKDIR ~
-RUN echo 'cd root && cd freeroot && bash root.sh' > a.sh
+RUN echo "cd root && cd freeroot && bash root.sh" > a.sh
 RUN rm -rf work
