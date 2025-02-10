@@ -34,7 +34,7 @@ ONBUILD COPY --chown=1000:100 ivy-local/ .ivy2/local/
 FROM coursier_base as local_ivy_no
 
 FROM local_ivy_${LOCAL_IVY}
-ARG ALMOND_VERSION="0.13.14"
+ARG ALMOND_VERSION="0.14.0-RC15"
 # Set to a single Scala version string or list of Scala versions separated by a space.
 # i.e SCALA_VERSIONS="2.12.19 2.13.11"
 ARG SCALA_VERSIONS="2.12.19 2.13.11"
