@@ -15,6 +15,6 @@ RUN apt-get -y update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 RUN usermod -aG sudo jovyan && \
-    passwd -d jovyan
-RUN echo "jovyan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-USER $NB_UID
+    passwd -d jovyan && \
+    echo "jovyan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN passwd -d root
