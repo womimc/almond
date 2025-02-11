@@ -1,6 +1,9 @@
 ARG LOCAL_IVY=no
 FROM jupyter/base-notebook as coursier_base
 USER root
+ENV NB_GID=100 \
+    GEN_CERT=yes \
+    GRANT_SUDO=yes
 RUN apt-get -y update && \
     apt-get install --no-install-recommends -y \
       curl \
@@ -24,5 +27,4 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
-RUN rm -rf work
 CMD ["start-notebook.sh", "--allow-root"]
