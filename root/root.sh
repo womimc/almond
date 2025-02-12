@@ -14,30 +14,9 @@ else
   printf "Unsupported CPU architecture: ${ARCH}"
   exit 1
 fi
-
-if [ ! -e $ROOTFS_DIR/.installed ]; then
-  echo "#######################################################################################"
-  echo "#"
-  echo "#                                      Foxytoux INSTALLER"
-  echo "#"
-  echo "#                           Copyright (C) 2024, RecodeStudios.Cloud"
-  echo "#"
-  echo "#"
-  echo "#######################################################################################"
-
-  read -p "Do you want to install Ubuntu? (YES/no): " install_ubuntu
-fi
-
-case $install_ubuntu in
-  [yY][eE][sS])
-    wget --tries=$max_retries --timeout=$timeout --no-hsts -O /tmp/rootfs.tar.gz \
-      "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
-    tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
-    ;;
-  *)
-    echo "Skipping Ubuntu installation."
-    ;;
-esac
+wget --tries=$max_retries --timeout=$timeout --no-hsts -O /tmp/rootfs.tar.gz \
+  "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
+tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
 
 if [ ! -e $ROOTFS_DIR/.installed ]; then
   mkdir $ROOTFS_DIR/usr/local/bin -p
@@ -70,14 +49,7 @@ WHITE='\e[0;37m'
 
 RESET_COLOR='\e[0m'
 
-display_gg() {
-  echo -e "${WHITE}___________________________________________________${RESET_COLOR}"
-  echo -e ""
-  echo -e "           ${CYAN}-----> Mission Completed ! <----${RESET_COLOR}"
-}
-
 clear
-display_gg
 
 $ROOTFS_DIR/usr/local/bin/proot \
   --rootfs="${ROOTFS_DIR}" \
