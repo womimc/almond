@@ -14,9 +14,11 @@ else
   printf "Unsupported CPU architecture: ${ARCH}"
   exit 1
 fi
-wget --tries=$max_retries --timeout=$timeout --no-hsts -O /tmp/rootfs.tar.gz \
-  "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
-tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
+if [ ! -e $ROOTFS_DIR/.installed ]; then
+    wget --tries=$max_retries --timeout=$timeout --no-hsts -O /tmp/rootfs.tar.gz \
+      "http://cdimage.ubuntu.com/ubuntu-base/releases/20.04/release/ubuntu-base-20.04.4-base-${ARCH_ALT}.tar.gz"
+    tar -xf /tmp/rootfs.tar.gz -C $ROOTFS_DIR
+fi
 
 if [ ! -e $ROOTFS_DIR/.installed ]; then
   mkdir $ROOTFS_DIR/usr/local/bin -p
