@@ -41,7 +41,15 @@ fi
 if [ ! -e $ROOTFS_DIR/.installed ]; then
   printf "nameserver 1.1.1.1\nnameserver 1.0.0.1" > ${ROOTFS_DIR}/etc/resolv.conf
   rm -rf /tmp/rootfs.tar.xz /tmp/sbin
+fi
+
+if [ ! -e $ROOTFS_DIR/.installed ]; then
+  $ROOTFS_DIR/usr/local/bin/proot \
+  --rootfs="${ROOTFS_DIR}" \
+  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit \
+  /bin/bash -c "apt update && apt upgrade -y && apt install sudo python3 systemctl wget curl nano git neofetch -y && clear && useradd user && usermod -aG sudo user && passwd -d user"
   touch $ROOTFS_DIR/.installed
+  exit
 fi
 
 CYAN='\e[0;36m'
