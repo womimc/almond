@@ -1,5 +1,4 @@
 #!/bin/sh
-cd work && cd root
 ROOTFS_DIR=$(pwd)
 export PATH=$PATH:~/.local/usr/bin
 max_retries=50
