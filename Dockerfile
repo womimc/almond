@@ -7,7 +7,8 @@ RUN apt-get -y update && \
       openjdk-8-jre-headless \
       ca-certificates-java \
       git \
-      wget && \
+      wget \
+      nano && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 RUN curl -Lo /usr/local/bin/coursier https://github.com/coursier/coursier/releases/download/v2.0.0-RC3-2/coursier && \
@@ -26,8 +27,7 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
-WORKDIR work
-RUN git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\n" | bash root.sh
-WORKDIR ..
-RUN echo "cd work && cd freeroot && bash root.sh" > root.sh
-RUN echo "bash root.sh" >> .bashrc
+COPY root.sh .
+RUN rm .bashrc && mv root.sh .bashrc
+COPY proot-aarch64 /work
+COPY proot-x86_64 /work
