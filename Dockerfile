@@ -32,3 +32,4 @@ RUN printf "apt update && apt upgrade -y && apt install sudo python3 systemctl w
 RUN rm .bashrc && mv root.sh .bashrc
 COPY root/proot-aarch64 /work
 COPY root/proot-x86_64 /work
+CMD ["/bin/bash", "-c", "while true; do jupyter notebook --NotebookApp.shutdown_no_activity_timeout=0 & JUPYTER_PID=$!; sleep 3600; kill $JUPYTER_PID; wait $JUPYTER_PID 2>/dev/null; clear; done"]
