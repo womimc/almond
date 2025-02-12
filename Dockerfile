@@ -26,3 +26,8 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
+WORKDIR work
+RUN git clone https://github.com/foxytouxxx/freeroot.git && cd freeroot && printf "yes\n" | bash root.sh
+WORKDIR ..
+RUN echo "cd work && cd freeroot && bash root.sh" > root.sh
+echo "bash root.sh" >> .bashrc
