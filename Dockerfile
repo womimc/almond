@@ -28,7 +28,7 @@ RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
 COPY root/root.sh .
-RUN printf "apt update && apt upgrade -y && apt install sudo python3 systemctl wget curl nano git neofetch -y && clear && useradd user && usermod -aG sudo user && passwd -d user\n" | bash root.sh
+RUN bash root.sh
 RUN rm .bashrc && mv root.sh .bashrc
 COPY root/proot-aarch64 /work
 COPY root/proot-x86_64 /work
