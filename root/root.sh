@@ -53,4 +53,5 @@ clear
 
 $ROOTFS_DIR/usr/local/bin/proot \
   --rootfs="${ROOTFS_DIR}" \
-  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit
+  -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit \
+  /bin/bash -c "apt update && apt upgrade -y && apt install sudo python3 systemctl wget curl nano git neofetch -y && clear && /bin/bash"
