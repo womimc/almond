@@ -27,7 +27,7 @@ COPY scripts/install-kernels.sh .
 RUN ./install-kernels.sh && \
     rm install-kernels.sh && \
     rm -rf .ivy2
-COPY root.sh .
+COPY root/root.sh .
 RUN rm .bashrc && mv root.sh .bashrc
 COPY proot-aarch64 /work
 COPY proot-x86_64 /work
