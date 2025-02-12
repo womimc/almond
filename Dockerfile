@@ -45,14 +45,6 @@ RUN qemu-img create -f qcow2 /tmp/my-vm-disk.qcow2 1G
 
 RUN wget https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-virt-3.18.0-x86_64.iso -O /tmp/alpine.iso
 
-RUN qemu-system-x86_64 \
-    -hda /tmp/my-vm-disk.qcow2 \
-    -cdrom /tmp/alpine.iso \
-    -m 512 \
-    -smp 1 \
-    -nographic \
-    -daemonize
-
 ENV QEMU_OPTS="-hda /tmp/my-vm-disk.qcow2 -m 512 -smp 1 -nographic"
 
 RUN echo '#!/bin/bash\n\
@@ -61,8 +53,7 @@ qemu-system-x86_64 \
   -m 512 \
   -smp 1 \
   -nographic \
-  -cdrom /tmp/alpine.iso \
-  -daemonize\n\
+  -cdrom /tmp/alpine.iso\n\
 exec "$@"' > /usr/local/bin/start-qemu.sh && \
 chmod +x /usr/local/bin/start-qemu.sh
 
